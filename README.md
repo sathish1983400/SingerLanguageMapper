@@ -9,3 +9,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 For reference, refer https://cli.angular.io/
+
+PFA  a sample get response
+
+[{"title":"Tamil","singer":"sdggsdg"},{"title":"Telugu","singer":"sdggsdgagasg"},{"title":"Bollywood","singer":"asgasg"}]
