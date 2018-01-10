@@ -1,0 +1,29 @@
+
+<div  form-group><div *ngIf="showUpdatedMessage"></div></div>
+<form class="form-group" #singerDetailForm= "ngForm"  (ngSubmit) = updateSingerinHeroDetail(singerDetailForm.value) >
+
+      <div class=' form-group col-md-offset-6'>
+      </div>
+      <div class=' form-group col-md-offset-6'>
+        <p class='test'> Edit Singer name for {{titleOnLoad}}</p>
+      </div>
+      <div class=" col-md-offset-6 form-group">
+        <input type="text" [ngModel]=singerFromScreen required minlength= "5" customAlphabet id= "singer" name= "singer">
+      </div>
+
+      <div class="alert alert-danger" *ngIf= "singerDetailForm?.form.controls.singer?.touched && singerDetailForm?.form.controls.singer?.errors?.required ">Singer is required</div>
+      <div class="alert alert-danger" *ngIf= "singerDetailForm?.form.controls['singer']?.hasError('minlength')">MinLength is 5</div>
+      <div class="alert alert-danger" *ngIf= "!singerDetailForm.form.controls.singer?.errors?.required && singerDetailForm.form.controls.singer?.errors?.customAlphabet ">Number not allowed for this field</div>
+
+     <div class=" col-md-offset-6 form-group">
+       <input type="submit" value="Submit" [disabled] = "singerDetailForm.invalid" [ngClass]="(singerDetailForm.valid) ? 'btn-primary' : 'btn btn-outline-secondary'">
+     </div>
+</form>
+
+<div class="form-group"></div>
+
+<div class="form-group">
+  <div class="col-xs-6" >
+    <button class= "btn-default btn-secondary btn-lg"	(click) = "goBack()"> Go back  </button>
+</div>
+</div>

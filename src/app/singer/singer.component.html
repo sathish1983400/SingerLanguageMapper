@@ -1,0 +1,88 @@
+ <form class="form-group"  #userForm= "ngForm"  (ngSubmit) = onSubmit(userForm.value) >
+
+   <div class=" form-check form-check-inline">
+    <input type="radio" name="myRadio" value="Bollywood" class="form-check-input" ngModel required>  <label class="form-check-label">Bollywood</label>
+    <input type="radio" name="myRadio" value="Tamil" class="form-check-input" ngModel required><label class="form-check-label">Tamil</label>
+    <input type="radio" name="myRadio" value="Telugu" class="form-check-input" ngModel required><label class="form-check-label">Telugu</label>
+   </div>
+
+    <div *ngIf= "userForm.form.controls.singer?.touched && !userForm.form.controls.myRadio?.dirty " class="alert alert-danger" >Title is required
+    </div>
+     <div class="form-group" >
+        <label class="control-label test">Singer Name</label>
+        <div><input type="text" class="form-control"  id= "singer" name= "singer"   minlength="5"  ngModel required customAlphabet></div>
+      </div>
+
+     <div class="alert alert-danger" *ngIf= "userForm.form.controls.singer?.touched && userForm.form.controls.singer?.errors?.required ">Singer is required</div>
+     <div class="alert alert-danger" *ngIf= "!userForm.form.controls.singer?.errors?.required && userForm.form.controls.singer?.errors?.customAlphabet ">Number not allowed for this field</div>
+     <div class="alert alert-danger" *ngIf= "userForm.form.controls['singer']?.hasError('minlength')">MinLength is 5</div>
+
+    <!--{{userForm.form.controls.singer?.touched}}
+    {{userForm.form.controls.singer?.untouched}}
+    {{userForm.form.controls.singer?.pristine}}
+    {{userForm.form.controls.singer?.dirty}}
+    {{userForm.form.controls.singer?.valid}}
+    {{userForm.form.controls.singer?.inValid}}-->
+
+     <div class="form-group">
+       <input type="submit" value="Submit"  [disabled] = "userForm.invalid" [ngClass]="(userForm.valid) ? 'btn-primary' : 'btn btn-outline-secondary'">
+     </div>
+
+     <div class="form-group" *ngIf="showInsertedMessage"><p class="text-success">Data inserted successfully  </p></div>
+
+     <div class="form-group">
+       <div *ngIf="showDuplicateMessage"><p class="text-danger">Data exists, Only one data allowed for the chosen option</p>
+       </div>
+     </div>
+
+     <div class="form-group">
+       <div *ngIf="showDataExists"><p class="text-danger">Data exists already for Title Singer Combination</p>
+       </div>
+     </div>
+
+   <div *ngIf="data">
+       <div *ngIf="data.length==0">
+         <p class="text-danger">Start inserting data, there is no data available.</p>
+       </div>
+       <div row form-group style="text-align-last: left"><div *ngIf="showDeletedMessage"><p class="text-success">Singer deleted successfully for {{clickedTitle}}</p> </div></div>
+       <div row form-group style="text-align-last: left"><div *ngIf="status"><p class="text-success">Singer updated successfully for {{titleUpdate}}</p> </div></div>
+
+        <table class="table table-striped table-hover">
+            <thead class="">
+                 <tr>
+                   <th>Title</th>
+                   <th>Singer</th>
+                   <th>Action</th>
+                 </tr>
+            </thead>
+          <tbody *ngFor="let member of data">
+               <tr>
+                   <td>{{member.title}}</td>
+                   <td>{{member.singer}}</td>
+                   <td><button type="button" class="btn btn-danger" (click) ="deleteSinger(member.title)">Delete</button>
+                        &nbsp;
+                       <button type="button" (click) ="updateSinger(member)" class="btn btn-warning" >Edit</button>
+                       <!--Routing from html-->
+                       <!--<a href= "#" routerLink="/singerdetail/{{member.title}}">click</a>-->
+                   </td>
+               </tr>
+          </tbody>
+
+        </table>
+            </div>
+
+      <div class="row col-md-10 col-md-offset-2 form-group" *ngIf="showUpdatedMessage"><p class="text-success">Singer updated successfully for {{clickedTitle}}</p> </div>
+
+      <div  id="heroDetailComponentDetails" class="invisible">
+        <div class='container'>
+        <div class='row form-group col-md-10 col-md-offset-2'>
+         <p class='bg-primary'> Change   for {{clickedTitle}} Title</p>
+         <div class="row col-md-10 col-md-offset-2 form-group">
+      <input type="text" id= "singer" name= "singer"  ngModel></div>
+        <div class="row col-md-10 col-md-offset-2 form-group"><input type="submit" value="Submit" (click) = "updateSingerinHeroDetail(userForm.value)"></div>
+      </div>
+    </div>
+
+</div>
+
+</form>
